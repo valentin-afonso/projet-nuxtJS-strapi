@@ -7,14 +7,23 @@
     <div v-else class="container-list">
       <!--  <div class="title">{{ house.attributes.titre }}</div>
         <a v-on:click="$emit()">Detail</a> -->
-      <TeaserHouse
+
+      <nuxt-link
+        :to="`/liste/` + house.id"
         v-for="house in houses"
         :key="house.id"
-        :titre="house.attributes.titre"
-        :prix="house.attributes.prix"
-        class="house"
-      />
+      >
+        <TeaserHouse
+          :titre="house.attributes.titre"
+          :prix="house.attributes.prix"
+          class="house"
+        />
+      </nuxt-link>
     </div>
+    <!--
+    <img :src="http://localhost:1337/api/upload/files/{}" alt="" />
+    http://localhost:1337/uploads/mainson2_b5c5ced619.jfif?updated_at=2022-03-17T16:36:35.897Z
+    -->
   </div>
 </template>
 
@@ -34,6 +43,15 @@ export default {
       },
     };
   },
+  /*
+  computed: {
+    changed_post_content: function () {
+      return post_content
+        .split("/uploads/")
+        .join(`http://localhost:1337/api/upload/files`);
+    },
+  },
+  */
   methods: {
     parseJSON: function (resp) {
       return resp.json ? resp.json() : resp;
